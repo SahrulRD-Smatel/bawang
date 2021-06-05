@@ -1,0 +1,84 @@
+﻿@model ui.LSP.Models.v_Login
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    @Styles.Render("~/bundle/css")
+    <style>
+        .bg {
+            background-image: url('../img/42.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            width: 100%;
+            height: 100vh; /* responsive height */
+        }
+
+        .vr {
+            -webkit-box-shadow: 0px 0px 35px 4px rgba(0,0,0,0.32);
+            -moz-box-shadow: 0px 0px 35px 4px rgba(0,0,0,0.32);
+            box-shadow: 0px 0px 35px 4px rgba(0,0,0,0.32);
+        }
+
+        html, body {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="bg">
+            <div class="container h-100 d-flex justify-content-center">
+                <div class="jumbotron my-auto vr" style="background-color: lavenderblush">
+                    <div class="row">
+                        <div class="col-6">
+                            <img src="../img/asp1.png" style="width: 100%; height: 100%" />
+                        </div>
+                        <div class="col-6 align-self-center">
+                            <div class="form-horizontal">
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Username, "Username", htmlAttributes: new { @class = "control-label col-12" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
+                                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Password, "Password", htmlAttributes: new { @class = "control-label col-12" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Login" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</body>
+</html>

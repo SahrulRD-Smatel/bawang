@@ -1,0 +1,94 @@
+﻿@model ui.LSP.Models.Tb_Admin_Provinsi
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    @Styles.Render("~/bundle/css")
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    @*<link href="~/Content/dist/css/et-line/style.css" rel="stylesheet">
+        <link href="~/Content/dist/css/themify-icons.css" rel="stylesheet">
+        <link href="~/Content/dist/css/owl.carousel.min.css" real="stylesheet">
+        <link href="~/Content/dist/css/magnific-popup.css" rel="stylesheet">*@
+    <link href="~/Content/dist/css/style.css" rel="stylesheet">
+    <link href="~/Content/dist/css/default.css" rel="stylesheet" id="color_theme">
+
+    <!--  <link rel="stylesheet" type="text/css" media="all" href="router.css" />
+    [if lt IE 9]>
+       <link rel="stylesheet" type="text/css" media="all" href="router-ie8.css"/>
+       <![endif]-->
+    <title></title>
+</head>
+<body onload="InitInput();" leftmargin="0" topmargin="0" class="login_simple"
+      style="overflow-x: auto; overflow-y: auto;" marginheight="0" marginwidth="0">
+
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+
+    <div id="loading">
+        <div class="load-circle"><span class="one"></span></div>
+    </div>
+    <main>
+        <section id="home" class="home-banner-03 theme-bg bg-effect-box" style="height:935px">
+            <div class="bg-effect bg-cover" style="background-image:url(../../Content/dist/img/banner-effect-6.svg)"></div>
+            <div id="particles_effect" class="particles-effect"></div>
+            <div class="container">
+                <div class="row align-items-center justify-content-center p-100px-tb sm-p-60px-b">
+                    <div class="col-lg-6 col-md-6 mx-lg-50px">
+                        <img src="~/Content/dist/img/logo JATENG.png" class="img-fluid" title="" alt="">
+                    </div>
+                    <div class="col-lg-6 col-md-6 md-p-30px-tb">
+                        <h5 class="white-color">LSP Jawa Tengah </h5>
+                        <h1 class="font-alt" style="color: #00ff37">LSP Login</h1>
+                        <div class="subscribe-block">
+                            <div class="card-block py-lg px-md">
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true)
+
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Username, "Username", htmlAttributes: new { @class = "control-label col-12" })
+                                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
+                                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-white" })
+
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Password, "Password", htmlAttributes: new { @class = "control-label col-12" })
+
+                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-white" })
+
+                                    </div>
+                                    <br />
+                                    <button type="submit" class="btn btn-block btn-warning">Login</button>
+
+                                }
+
+
+                            </div>
+                            <label>Nikmati applikasi buatan kami</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="~/Content/dist/js/particles.min.js"></script>
+    <script src="~/Content/dist/js/particles-app.js"></script>
+    <script src="~/Content/dist/js/jquery.parallax-scroll.js"></script>
+    <script src="~/Content/dist/js/custom.js"></script>
+
+</body>
+</html>
+

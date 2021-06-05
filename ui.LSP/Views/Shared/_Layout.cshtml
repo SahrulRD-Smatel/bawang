@@ -1,0 +1,278 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+    <link href="~/Content/dist/css/StyleSpiner.css" rel="stylesheet">
+    @Styles.Render("~/bundle/css")
+    @Scripts.Render("~/bundles/jquery")
+
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed text-sm">
+    <div id="loading">
+        <div class="load-circle"><span class="one"></span></div>
+    </div>
+
+    <div class="wrapper">
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-dark navbar-success">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    @*<a href="~/Home" class="nav-link">Home</a>*@
+                    @if (Session["usrTypeLogin"] != null)
+                    {
+                        if (Session["usrTypeLogin"].ToString() == "PROP")
+                        {
+                            @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Home", "Index", "HomeSKL", new { area = "" }, new { @class = "nav-link" })
+                        }
+                    }
+
+                </li>
+
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    @{
+                        var usrLogin = Session["userLogin"].ToString();
+                    }
+
+                    <a class="nav-link">User: @usrLogin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                        <i class="fas fa-th-large"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/LOGIN" role="button">
+                        <i class="fas fa-sign-out-alt">&nbsp; LOGOUT</i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-warning elevation-4">
+            <!-- Brand Logo -->
+            <a href="#" class="brand-link navbar-success">
+                <img src="~/Content/dist/img/hastag.jpg" alt="LSP Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">LSP Jawa Tengah</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                @*<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                                <img src="~/Content/dist/img/logo forum lsp jawa tengah.jpg" class="img-circle elevation-2" alt="User Image">
+                            </div>
+                        <div class="info text-center">
+                            <a class="d-block">
+                                @{
+                                    var usrLogin = Session["userLogin"].ToString();
+                                }
+
+                                @usrLogin
+                            </a>
+                        </div>
+                    </div>*@
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2" id="mainMenu">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" id="mainMenuUL">
+                        @{
+                            if (Session["usrTypeLogin"] == null)
+                            {
+                                Response.Redirect("~/Login");
+                            }
+                            else if (Session["usrTypeLogin"].ToString() == "PROP")
+                            {
+                                Html.RenderPartial("_MenuSharedProp");
+                            }
+                            else if (Session["usrTypeLogin"].ToString() == "SKL")
+                            {
+                                Html.RenderPartial("_MenuSharedSkl");
+                            }
+
+                        }
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0" id="dashbordMain"></h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6" id="linkBar">
+                            @*<ol class="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item active">Dashboard v1</li>
+                                </ol>*@
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+
+                    @*--begin  of Content--*@
+
+                    <div>
+                        @RenderBody()
+                    </div>
+
+                    @*--end of Content--*@
+                </div>
+            </section>
+        </div>
+        @*--end of body--*@
+
+        <!-- /.content-wrapper -->
+        <footer class="main-footer" style="text-align:center">
+            <strong>Copyright &copy; 2021-2023 <a href="https://www.linkedin.com/in/sahrul-ramadhani-2402481b8/">sahrul.r.dhani@gmail.com</a>.</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+                <a><i class="fa fa-snowflake"></i> </a>
+            </div>
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+    <!-- /.modal -->
+    <div class="modal fade " id="modal-primary">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-gradient-blue">
+                <div class="modal-header">
+                    <h4 class="modal-title">Konfirmasi</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Apakah data ini akan di hapus?</p>
+                    <p id="addMsg1"></p>
+                    <p id="addMsg2"></p>
+
+                    <p hidden id="noID"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-outline-light toastrDefaultSuccess" onclick="deleteOK();">OK</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+
+    <script>
+
+        $.widget.bridge('uibutton', $.ui.button)
+        $(function () {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
+            $('.toastrDefaultSuccess').click(function () {
+                toastr.success('Success.')
+            });
+
+            $('.form-control-chosen-required').chosen({
+                allow_single_deselect: false,
+                width: '100%'
+            });
+
+        });
+
+        function ADMenuPropinsi(t) {
+            //remove class Active
+            $("#mnuDashboard").removeClass("active");
+            $("#mnuSMK").removeClass("active");
+            $("#mnuLSPSMK").removeClass("active");
+            $("#mnuKKTerlisensi").removeClass("active");
+            $("#mnuPSertifikat").removeClass("active");
+            $("#mnuJejaringLSP").removeClass("active");
+            $("#mnuKompetensiKeahlian").removeClass("active");
+            $("#mnuTahunPelajaran").removeClass("active");
+            $("#mnuAdminProvinsi").removeClass("active");
+            $("#mnuAdminSekolah").removeClass("active");
+            $("#mnuSMKKK").removeClass("active");
+
+
+            $("#" + t).addClass("active");
+        }
+
+        function ADMenuSekolah(t) {
+            //remove class Active
+            $("#mnuDashboardSMK").removeClass("active");
+            $("#mnuLSPSKL").removeClass("active");
+            $("#mnuKKTerlisensiSKL").removeClass("active");
+            $("#mnuJejaringLSPSKL").removeClass("active");
+            $("#mnuUbahPassSKL").removeClass("active");
+            $("#mnuSMKKKSKL").removeClass("active");
+            $("#mnuProfileSKL").removeClass("active");
+            $("#mnuProfileKKSKL").removeClass("active");
+
+            $("#" + t).addClass("active");
+        }
+
+
+        function AjaxCall(url, data, type) {
+            return $.ajax({
+                url: url,
+                type: type ? type : 'GET',
+                data: data,
+                contentType: 'application/json'
+            });
+        }
+    </script>
+
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+    @Scripts.Render("~/bundles/js")
+    <script src="~/Content/dist/js/custom.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
